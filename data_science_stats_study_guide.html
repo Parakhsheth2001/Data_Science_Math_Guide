@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science & Statistics Study Guide</title>
+</head>
+<body>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=Outfit:wght@400;500;600&display=swap');
@@ -21,7 +29,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);disp
 .topic{display:none}
 .topic.active{display:block}
 .topic-header{margin-bottom:2rem}
-.topic-tag{display:inline-block;background:var(--tag);color:var(--tag-t);font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;margin-bottom:0.75rem;font-family:'DM Mono',monospace;letter-spacing:.5px}
+.topic-tag{display:inline-block;background:var(--tag);color:var(--tag-t);font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;margin-bottom:0.75rem;font-family:'DM Mono',monospace;letter-spacing:0.5px}
 .topic-title{font-family:'DM Serif Display',serif;font-size:32px;line-height:1.2;margin-bottom:0.5rem}
 .topic-desc{color:var(--muted);font-size:15px;line-height:1.6}
 .section{margin-bottom:2rem}
@@ -84,319 +92,13 @@ tr:nth-child(even) td{background:#fafaf9}
 
 <script>
 const topics=[
-{id:'prob',icon:'🎲',label:'Probability Basics',tag:'FOUNDATION',
-title:'Probability & Statistics',
-desc:'The mathematical language of uncertainty — the backbone of every ML model, A/B test, and data-driven decision.',
-sections:[
-{type:'overview',content:`<h3>What is Probability?</h3><p>Probability measures <strong>how likely</strong> an event is to occur, on a scale from 0 (impossible) to 1 (certain). Statistics is the science of collecting, analyzing, and interpreting data to make decisions under uncertainty.</p><p><b>Why it matters in Data Science:</b> Every prediction a model makes is a probability. Spam detection, fraud detection, recommendation engines — all built on probabilistic reasoning.</p>`},
-{type:'intuition',content:`<div class="analogy-box"><div class="label">REAL-LIFE ANALOGY</div><p style="margin:0;font-size:13px;color:#78350f">Imagine you have a bag with 3 red balls and 7 blue balls. If you blindly pick one, the probability of red = 3/10 = 0.3, or 30%. You don't know which one you'll get, but you know the <em>likelihood</em>. That's probability — structured uncertainty.</p></div>`},
-{type:'concepts',content:`<div class="concept-grid">
-<div class="concept-card"><h4>Sample Space (S)</h4><p>All possible outcomes. Tossing a coin: S = {H, T}. Rolling a die: S = {1,2,3,4,5,6}</p></div>
-<div class="concept-card"><h4>Event (E)</h4><p>A subset of the sample space. Rolling an even number: E = {2,4,6}</p></div>
-<div class="concept-card"><h4>Complement (Eᶜ)</h4><p>Everything NOT in E. If E = rain, Eᶜ = no rain. P(Eᶜ) = 1 − P(E)</p></div>
-<div class="concept-card"><h4>Conditional Probability</h4><p>Probability of A given B already happened: P(A|B). Updates your belief with new information.</p></div>
-</div>`},
-{type:'formulas',content:`<div class="formula-box"><div class="f-title">BASIC PROBABILITY</div><div class="formula-main">P(E) = Number of favorable outcomes / Total outcomes</div><div class="formula-vars">P(E) = probability of event E &nbsp;|&nbsp; Range: 0 ≤ P(E) ≤ 1</div></div>
-<div class="formula-box"><div class="f-title">ADDITION RULE</div><div class="formula-main">P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</div><div class="formula-vars">∪ = union (A or B) &nbsp;|&nbsp; ∩ = intersection (A and B)</div></div>
-<div class="formula-box"><div class="f-title">CONDITIONAL PROBABILITY</div><div class="formula-main">P(A|B) = P(A ∩ B) / P(B)</div><div class="formula-vars">P(A|B) = probability of A given B has occurred &nbsp;|&nbsp; P(B) ≠ 0</div></div>
-<div class="formula-box"><div class="f-title">MULTIPLICATION RULE (Independent Events)</div><div class="formula-main">P(A ∩ B) = P(A) × P(B)</div><div class="formula-vars">Only valid when A and B are independent (one doesn't affect the other)</div></div>`},
-{type:'example',content:`<div class="example-box"><div class="ex-title">WORKED EXAMPLE — Card Draw</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">A standard deck has 52 cards. What is P(drawing an Ace)?</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">Favorable outcomes = 4 aces &nbsp;|&nbsp; Total = 52</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">P(Ace) = 4/52 = 1/13 ≈ 0.077 or 7.7%</div></div>
-<div class="step"><div class="step-num">4</div><div class="step-text">P(NOT Ace) = 1 − 1/13 = 12/13 ≈ 92.3%</div></div>
-</div>`},
-{type:'mistakes',content:`<div class="warn-box"><div class="w-label">COMMON MISTAKE 1</div><p>Confusing P(A|B) with P(B|A). "Probability of fire given smoke" ≠ "Probability of smoke given fire." This error causes the <em>base rate fallacy</em>.</p></div>
-<div class="warn-box"><div class="w-label">COMMON MISTAKE 2</div><p>Assuming all events are independent. If you draw a card and don't replace it, the next draw is NOT independent — probabilities change.</p></div>`},
-{type:'practice',qa:[
-{q:'A bag has 5 red, 3 green, 2 blue balls. What is P(red)?',d:'easy',a:'P(red) = 5/10 = 0.5 or 50%. Total = 10 balls, 5 are red.'},
-{q:'What is P(rolling a 3 OR a 5) on a fair die?',d:'easy',a:'P(3) + P(5) = 1/6 + 1/6 = 2/6 = 1/3 ≈ 33.3%. These are mutually exclusive events, so we add directly.'},
-{q:'In a class of 40, 25 play cricket, 15 play football, 5 play both. What is P(plays cricket or football)?',d:'medium',a:'P(C∪F) = P(C) + P(F) − P(C∩F) = 25/40 + 15/40 − 5/40 = 35/40 = 0.875 or 87.5%.'},
-]},
-{type:'summary',content:`<div class="summary-grid">
-<div class="sum-card"><h4>KEY FORMULA</h4><p>P(E) = favourable / total<br>P(A|B) = P(A∩B) / P(B)<br>P(Eᶜ) = 1 − P(E)</p></div>
-<div class="sum-card"><h4>KEY INSIGHT</h4><p>Probability lives between 0 and 1. All probabilities in a sample space sum to 1. Conditional prob updates belief with evidence.</p></div>
-</div>`}
-]},
-
-{id:'bayes',icon:'🔄',label:'Bayes Theorem',tag:'CORE CONCEPT',
-title:"Bayes' Theorem",
-desc:"The most powerful idea in statistics — update your beliefs as new evidence arrives. Used in spam filters, medical diagnosis, and AI.",
-sections:[
-{type:'overview',content:`<h3>What is Bayes' Theorem?</h3><p>Bayes' Theorem tells you how to <em>update your belief</em> about something when you receive new evidence. It connects prior knowledge with new observations to produce a refined (posterior) probability.</p><p><b>Why it matters:</b> Naive Bayes classifier, Bayesian neural networks, medical diagnosis, spam detection, and more are all built on this foundation.</p>`},
-{type:'intuition',content:`<div class="analogy-box"><div class="label">MEDICAL TEST ANALOGY</div><p style="margin:0;font-size:13px;color:#78350f">Imagine a disease affects 1% of the population. A test is 95% accurate. If you test positive, what's the actual chance you have the disease? Most people say 95% — but Bayes says it's only about <strong>16%</strong>! Why? Because false positives swamp true positives when the disease is rare. Bayes accounts for this base rate.</p></div>`},
-{type:'formulas',content:`<div class="formula-box"><div class="f-title">BAYES' THEOREM</div><div class="formula-main">P(A|B) = [ P(B|A) × P(A) ] / P(B)</div><div class="formula-vars">P(A) = Prior: your belief before seeing evidence<br>P(B|A) = Likelihood: probability of evidence given A is true<br>P(B) = Marginal: total probability of the evidence<br>P(A|B) = Posterior: updated belief after seeing evidence</div></div>
-<div class="formula-box"><div class="f-title">LAW OF TOTAL PROBABILITY (for P(B))</div><div class="formula-main">P(B) = P(B|A)×P(A) + P(B|Aᶜ)×P(Aᶜ)</div><div class="formula-vars">Expands the denominator when P(B) is not directly known</div></div>`},
-{type:'example',content:`<div class="example-box"><div class="ex-title">WORKED EXAMPLE — Disease Diagnosis</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">Disease prevalence: P(Disease) = 0.01 (1%)</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">Test sensitivity: P(Positive | Disease) = 0.95</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">False positive rate: P(Positive | No Disease) = 0.05</div></div>
-<div class="step"><div class="step-num">4</div><div class="step-text">P(Positive) = 0.95×0.01 + 0.05×0.99 = 0.0095 + 0.0495 = 0.059</div></div>
-<div class="step"><div class="step-num">5</div><div class="step-text">P(Disease | Positive) = (0.95 × 0.01) / 0.059 = 0.0095 / 0.059 ≈ <span class="highlight">0.161 = 16.1%</span></div></div>
-</div><p style="font-size:13px;color:var(--muted);margin-top:0.5rem">Despite a 95% accurate test, only a 16% chance of actually having the disease when positive — because the disease is rare!</p>`},
-{type:'applications',content:`<p>Real-world Data Science applications:</p><div class="app-chips"><span class="chip">Spam filtering (Naive Bayes)</span><span class="chip">Medical diagnosis</span><span class="chip">Fraud detection</span><span class="chip">Search ranking</span><span class="chip">Recommendation systems</span><span class="chip">NLP text classification</span></div>`},
-{type:'mistakes',content:`<div class="warn-box"><div class="w-label">BASE RATE NEGLECT</div><p>Ignoring P(A) — the prior probability — is the #1 Bayesian mistake. Always ask: "How common is this event in the first place?"</p></div>
-<div class="warn-box"><div class="w-label">PROSECUTOR'S FALLACY</div><p>Confusing P(Evidence | Innocent) with P(Innocent | Evidence). These are completely different quantities.</p></div>`},
-{type:'practice',qa:[
-{q:'An email is spam 30% of the time. The word "FREE" appears in 80% of spam but only 10% of non-emails. An email contains "FREE" — what is P(spam)?',d:'hard',a:'P(FREE) = 0.8×0.3 + 0.1×0.7 = 0.24+0.07 = 0.31. P(Spam|FREE) = (0.8×0.3)/0.31 = 0.24/0.31 ≈ 77.4%.'},
-{q:'What are the 3 components of Bayes Theorem?',d:'easy',a:'Prior P(A) — belief before evidence. Likelihood P(B|A) — how probable the evidence is if A is true. Posterior P(A|B) — updated belief after seeing evidence.'},
-]},
-{type:'summary',content:`<div class="summary-grid">
-<div class="sum-card"><h4>KEY FORMULA</h4><p>P(A|B) = P(B|A)×P(A) / P(B)<br>Prior → Likelihood → Posterior</p></div>
-<div class="sum-card"><h4>KEY INSIGHT</h4><p>Always consider the base rate. Rare events remain unlikely even after positive tests. Evidence updates beliefs, not replaces them.</p></div>
-</div>`}
-]},
-
-{id:'discrete',icon:'📊',label:'Discrete Distributions',tag:'PROBABILITY',
-title:'Discrete Probability Distributions',
-desc:'Models for counting outcomes — from coin flips to customer arrivals. The foundation of classification models.',
-sections:[
-{type:'overview',content:`<h3>What are Discrete Distributions?</h3><p>A discrete probability distribution describes the probability of each outcome of a discrete random variable (one that takes countable values: 0, 1, 2, 3...). The <b>PMF (Probability Mass Function)</b> gives the exact probability for each value.</p>`},
-{type:'intuition',content:`<div class="analogy-box"><div class="label">ANALOGY</div><p style="margin:0;font-size:13px;color:#78350f">Think of flipping 10 coins and counting heads. You can get exactly 0, 1, 2...10 heads. Each possible count has a specific probability. That's a discrete distribution — clean, countable outcomes, each with a precise probability mass.</p></div>`},
-{type:'formulas',content:`
-<h3>Bernoulli Distribution</h3>
-<div class="formula-box"><div class="f-title">PMF</div><div class="formula-main">P(X=k) = p^k × (1−p)^(1−k), k ∈ {0,1}</div><div class="formula-vars">p = probability of success &nbsp;|&nbsp; Mean = p &nbsp;|&nbsp; Variance = p(1−p)</div></div>
-<h3 style="margin-top:1rem">Binomial Distribution</h3>
-<div class="formula-box"><div class="f-title">PMF — n trials, k successes</div><div class="formula-main">P(X=k) = C(n,k) × p^k × (1−p)^(n−k)</div><div class="formula-vars">n = number of trials &nbsp;|&nbsp; k = successes &nbsp;|&nbsp; p = P(success)<br>C(n,k) = n! / (k!(n−k)!) &nbsp;|&nbsp; Mean = np &nbsp;|&nbsp; Variance = np(1−p)</div></div>
-<h3 style="margin-top:1rem">Poisson Distribution</h3>
-<div class="formula-box"><div class="f-title">PMF — rare events in fixed interval</div><div class="formula-main">P(X=k) = (λ^k × e^(−λ)) / k!</div><div class="formula-vars">λ = average rate (mean events per interval) &nbsp;|&nbsp; Mean = λ &nbsp;|&nbsp; Variance = λ</div></div>`},
-{type:'example',content:`<div class="example-box"><div class="ex-title">BINOMIAL — Quality Control</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">A factory has 10% defect rate. You sample 5 items. What's P(exactly 2 defective)?</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">n=5, k=2, p=0.10. Calculate C(5,2) = 5!/(2!×3!) = 10</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">P(X=2) = 10 × (0.1)² × (0.9)³ = 10 × 0.01 × 0.729 = <span class="highlight">0.0729 ≈ 7.3%</span></div></div>
-</div>
-<div class="example-box"><div class="ex-title">POISSON — Website Traffic</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">A website gets 3 crashes per day on average (λ=3). What's P(exactly 1 crash today)?</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">P(X=1) = (3¹ × e⁻³) / 1! = 3 × 0.0498 / 1 = <span class="highlight">0.1494 ≈ 14.9%</span></div></div>
-</div>`},
-{type:'applications',content:`<table><tr><th>Distribution</th><th>Use Case</th><th>Example</th></tr>
-<tr><td>Bernoulli</td><td>Binary outcome</td><td>Click / No-click, Fraud / Not fraud</td></tr>
-<tr><td>Binomial</td><td>Count of successes in n trials</td><td>Email opens out of 1000 sent</td></tr>
-<tr><td>Poisson</td><td>Count of rare events in interval</td><td>Server errors per hour, calls per minute</td></tr></table>`},
-{type:'practice',qa:[
-{q:'A coin is flipped 6 times. What is P(exactly 4 heads)?',d:'medium',a:'P(X=4) = C(6,4) × 0.5⁴ × 0.5² = 15 × 0.0625 × 0.25 = 15 × 0.015625 = 0.234 ≈ 23.4%'},
-{q:'When is Poisson more appropriate than Binomial?',d:'easy',a:'When n is very large and p is very small (rare events). Poisson approximates Binomial when n ≥ 20 and p ≤ 0.05, with λ = np.'},
-{q:'A call center receives 5 calls/hour. What is P(receiving 0 calls in an hour)?',d:'medium',a:'P(X=0) = e⁻⁵ × 5⁰ / 0! = e⁻⁵ = 0.0067 ≈ 0.67%'},
-]},
-{type:'summary',content:`<div class="summary-grid">
-<div class="sum-card"><h4>FORMULAS</h4><p>Bernoulli: P(k) = p^k(1-p)^(1-k)<br>Binomial: C(n,k)p^k(1-p)^(n-k)<br>Poisson: λ^k·e^-λ / k!</p></div>
-<div class="sum-card"><h4>WHEN TO USE</h4><p>Bernoulli: 1 trial, 2 outcomes<br>Binomial: n trials, count successes<br>Poisson: rare events, large n, small p</p></div>
-</div>`}
-]},
-
-{id:'continuous',icon:'📈',label:'Continuous Distributions',tag:'PROBABILITY',
-title:'Continuous Uniform Distribution',
-desc:'When every value in a range is equally likely — the simplest continuous distribution, foundation for simulation and sampling.',
-sections:[
-{type:'overview',content:`<h3>What is a Continuous Distribution?</h3><p>Unlike discrete distributions (countable outcomes), continuous distributions model variables that can take any value in a range — like height, weight, time, or temperature. Instead of a PMF, we use a <b>PDF (Probability Density Function)</b>.</p><p>The <b>Uniform Distribution</b> is the simplest: every value between a and b is equally likely.</p>`},
-{type:'intuition',content:`<div class="analogy-box"><div class="label">ANALOGY — Bus Arrival</div><p style="margin:0;font-size:13px;color:#78350f">A bus arrives randomly between 9:00 and 9:30 AM. Every minute is equally likely. This is a Uniform distribution from a=0 to b=30. The chance of arriving between minute 10 and 20? Exactly 10/30 = 33.3%. Flat, fair, uniform.</p></div>
-<p style="font-size:13px;color:var(--muted)">Key insight: For continuous distributions, P(X = exactly one value) = 0. We can only compute probability over an interval.</p>`},
-{type:'formulas',content:`<div class="formula-box"><div class="f-title">PDF — CONTINUOUS UNIFORM DISTRIBUTION</div><div class="formula-main">f(x) = 1/(b−a) &nbsp; for a ≤ x ≤ b</div><div class="formula-vars">a = lower bound &nbsp;|&nbsp; b = upper bound &nbsp;|&nbsp; f(x) = 0 outside [a,b]</div></div>
-<div class="formula-box"><div class="f-title">PROBABILITY OVER INTERVAL [c,d]</div><div class="formula-main">P(c ≤ X ≤ d) = (d−c) / (b−a)</div></div>
-<div class="formula-box"><div class="f-title">STATISTICS</div><div class="formula-main">Mean = (a+b)/2 &nbsp;&nbsp;&nbsp; Variance = (b−a)²/12</div></div>
-<div class="formula-box"><div class="f-title">CDF — CUMULATIVE DISTRIBUTION</div><div class="formula-main">F(x) = (x−a)/(b−a) &nbsp; for a ≤ x ≤ b</div><div class="formula-vars">F(x)=0 for x&lt;a &nbsp;|&nbsp; F(x)=1 for x&gt;b</div></div>`},
-{type:'example',content:`<div class="example-box"><div class="ex-title">WORKED EXAMPLE</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">A machine fills bottles with water uniformly between 490ml and 510ml. X ~ U(490, 510)</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">PDF = 1/(510−490) = 1/20 = 0.05</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">P(500 ≤ X ≤ 505) = (505−500)/20 = 5/20 = <span class="highlight">0.25 = 25%</span></div></div>
-<div class="step"><div class="step-num">4</div><div class="step-text">Mean = (490+510)/2 = 500ml &nbsp;|&nbsp; Variance = (510−490)²/12 = 400/12 ≈ 33.3</div></div>
-</div>`},
-{type:'applications',content:`<div class="app-chips"><span class="chip">Random number generation</span><span class="chip">Monte Carlo simulation</span><span class="chip">Random seed initialization</span><span class="chip">Uniform sampling</span><span class="chip">Initial ML weight initialization</span></div>`},
-{type:'practice',qa:[
-{q:'X ~ U(0,10). What is P(2 < X < 7)?',d:'easy',a:'P(2<X<7) = (7−2)/(10−0) = 5/10 = 0.5 = 50%'},
-{q:'What is the mean and variance of U(2, 8)?',d:'easy',a:'Mean = (2+8)/2 = 5. Variance = (8−2)²/12 = 36/12 = 3.'},
-{q:'Why is P(X = exactly 5) = 0 for a continuous distribution?',d:'medium',a:'Continuous distributions have infinite possible values. Any single point has zero width, so the area under the PDF at one point = 0. Probability only exists over intervals.'},
-]},
-{type:'summary',content:`<div class="summary-grid">
-<div class="sum-card"><h4>KEY FORMULA</h4><p>f(x) = 1/(b-a)<br>P(c≤X≤d) = (d-c)/(b-a)<br>Mean = (a+b)/2</p></div>
-<div class="sum-card"><h4>KEY INSIGHT</h4><p>Continuous = probabilities as areas under curves. Every exact point has P=0. Only intervals have probability.</p></div>
-</div>`}
-]},
-
-{id:'sampling',icon:'🎯',label:'Sampling Techniques',tag:'STATISTICS',
-title:'Sampling Techniques',
-desc:'How to collect data that actually represents the population — the difference between good analysis and misleading results.',
-sections:[
-{type:'overview',content:`<h3>Why Sampling Matters</h3><p>You can rarely measure an entire population (all users, all customers, all products). Sampling lets you study a <b>subset (sample)</b> and draw conclusions about the <b>whole (population)</b>. Bad sampling = bad conclusions, no matter how fancy your model.</p>`},
-{type:'intuition',content:`<div class="analogy-box"><div class="label">SOUP ANALOGY</div><p style="margin:0;font-size:13px;color:#78350f">Tasting a soup to know if it's salty. You don't drink the whole pot — a spoonful works IF it's well-stirred (representative). If you only taste from the top (biased), you'll get the wrong answer. That's sampling in a nutshell.</p></div>`},
-{type:'concepts',content:`<div class="concept-grid">
-<div class="concept-card"><h4>Simple Random Sampling</h4><p>Every member of the population has equal chance of selection. Best for homogeneous populations.</p></div>
-<div class="concept-card"><h4>Stratified Sampling</h4><p>Divide population into subgroups (strata) then sample from each. Ensures representation of all groups.</p></div>
-<div class="concept-card"><h4>Systematic Sampling</h4><p>Select every k-th element. E.g., every 10th customer from a list.</p></div>
-<div class="concept-card"><h4>Cluster Sampling</h4><p>Divide into clusters, randomly select entire clusters. Useful when population is geographically spread.</p></div>
-</div>`},
-{type:'formulas',content:`<div class="formula-box"><div class="f-title">SAMPLING ERROR</div><div class="formula-main">Standard Error (SE) = σ / √n</div><div class="formula-vars">σ = population std dev &nbsp;|&nbsp; n = sample size<br>Larger n → smaller SE → more accurate estimate</div></div>
-<div class="formula-box"><div class="f-title">CONFIDENCE INTERVAL (95%)</div><div class="formula-main">CI = x̄ ± 1.96 × (σ/√n)</div><div class="formula-vars">x̄ = sample mean &nbsp;|&nbsp; 1.96 = z-score for 95% confidence</div></div>
-<div class="formula-box"><div class="f-title">BIAS vs VARIANCE</div><div class="formula-main">MSE = Bias² + Variance</div><div class="formula-vars">Bias: systematic error (wrong direction) &nbsp;|&nbsp; Variance: spread/inconsistency</div></div>`},
-{type:'example',content:`<div class="example-box"><div class="ex-title">STRATIFIED SAMPLING — Customer Survey</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">Company has: 60% regular customers, 30% premium, 10% VIP. Total: 10,000 customers.</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">You want a sample of 200. Stratify proportionally:</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">Regular: 200 × 0.60 = 120 &nbsp;|&nbsp; Premium: 200 × 0.30 = 60 &nbsp;|&nbsp; VIP: 200 × 0.10 = 20</div></div>
-<div class="step"><div class="step-num">4</div><div class="step-text">Result: All segments represented proportionally — much better than random sampling alone.</div></div>
-</div>`},
-{type:'mistakes',content:`<div class="warn-box"><div class="w-label">SELECTION BIAS</div><p>Surveying users who voluntarily respond (survivorship bias). Online surveys get tech-savvy respondents — not representative of all customers.</p></div>
-<div class="warn-box"><div class="w-label">SMALL SAMPLE SIZE</div><p>A sample of 30 from a population of 1 million gives wide confidence intervals. Don't draw strong conclusions from tiny samples.</p></div>`},
-{type:'practice',qa:[
-{q:'What is the standard error if σ=15 and n=100?',d:'easy',a:'SE = σ/√n = 15/√100 = 15/10 = 1.5'},
-{q:'Which sampling method is best for a national survey where you want to ensure young, middle-aged, and elderly groups are proportionally represented?',d:'medium',a:'Stratified sampling. Divide population by age group, then randomly sample within each stratum proportionally.'},
-{q:'A survey of online shoppers shows 70% prefer mobile. But it was conducted via desktop website. What bias exists?',d:'hard',a:'Selection bias / platform bias. Desktop users are more likely to complete the survey, underrepresenting mobile-only users. The 70% likely understates true mobile preference.'},
-]},
-{type:'summary',content:`<div class="summary-grid">
-<div class="sum-card"><h4>KEY FORMULA</h4><p>SE = σ/√n<br>CI = x̄ ± z×SE<br>MSE = Bias² + Variance</p></div>
-<div class="sum-card"><h4>KEY INSIGHT</h4><p>Larger samples reduce variance, not bias. Bias comes from bad sampling design. Always ask: who is NOT in my sample?</p></div>
-</div>`}
-]},
-
-{id:'hypo',icon:'⚖️',label:'Hypothesis Testing',tag:'INFERENCE',
-title:'Hypothesis Testing',
-desc:'A rigorous framework to test claims using data — the engine behind product decisions, clinical trials, and scientific discovery.',
-sections:[
-{type:'overview',content:`<h3>What is Hypothesis Testing?</h3><p>Hypothesis testing is a procedure to evaluate claims about a population based on sample data. It gives us a formal way to decide whether observed data is due to chance or reflects a real effect.</p><p>Think of it as a court trial: the null hypothesis is "innocent until proven guilty."</p>`},
-{type:'intuition',content:`<div class="analogy-box"><div class="label">COURT TRIAL ANALOGY</div><p style="margin:0;font-size:13px;color:#78350f">H₀ (null) = defendant is innocent. H₁ (alternative) = defendant is guilty. You gather evidence (data). If evidence is strong enough (low p-value), you reject the null. You never "prove" innocence — you fail to find guilt. Similarly, you never "prove" H₀ — you fail to reject it.</p></div>`},
-{type:'concepts',content:`<div class="concept-grid">
-<div class="concept-card"><h4>H₀ — Null Hypothesis</h4><p>Default assumption of no effect, no difference. "The new drug has no effect." We try to reject this.</p></div>
-<div class="concept-card"><h4>H₁ — Alternative Hypothesis</h4><p>What you're trying to prove. "The new drug reduces blood pressure." Must be specific and testable.</p></div>
-<div class="concept-card"><h4>p-value</h4><p>Probability of observing results this extreme, assuming H₀ is true. Low p-value = strong evidence against H₀.</p></div>
-<div class="concept-card"><h4>Significance Level (α)</h4><p>Threshold for rejection. Typically 0.05. If p < α, reject H₀. This is our tolerance for Type I error.</p></div>
-</div>`},
-{type:'formulas',content:`<div class="formula-box"><div class="f-title">Z-TEST STATISTIC</div><div class="formula-main">z = (x̄ − μ₀) / (σ/√n)</div><div class="formula-vars">x̄ = sample mean &nbsp;|&nbsp; μ₀ = hypothesized population mean<br>σ = std dev &nbsp;|&nbsp; n = sample size</div></div>
-<div class="formula-box"><div class="f-title">T-TEST (when σ unknown)</div><div class="formula-main">t = (x̄ − μ₀) / (s/√n)</div><div class="formula-vars">s = sample std dev &nbsp;|&nbsp; Degrees of freedom = n−1</div></div>
-<table><tr><th>Error Type</th><th>What Happens</th><th>Cost</th></tr>
-<tr><td>Type I (α)</td><td>Reject H₀ when it's actually true (false positive)</td><td>Implement useless change</td></tr>
-<tr><td>Type II (β)</td><td>Fail to reject H₀ when it's actually false (false negative)</td><td>Miss a real improvement</td></tr></table>`},
-{type:'example',content:`<div class="example-box"><div class="ex-title">WORKED EXAMPLE — Website Conversion Rate</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">Old conversion rate: 5%. New design tested on 1000 users: 62 conversions (6.2%).</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">H₀: p = 0.05 &nbsp;|&nbsp; H₁: p > 0.05 &nbsp;|&nbsp; α = 0.05</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">z = (0.062 − 0.05) / √(0.05×0.95/1000) = 0.012 / 0.00689 ≈ 1.74</div></div>
-<div class="step"><div class="step-num">4</div><div class="step-text">p-value for z=1.74 (one-tailed) ≈ 0.041</div></div>
-<div class="step"><div class="step-num">5</div><div class="step-text">Since 0.041 < 0.05, we <span class="highlight">reject H₀</span>. The new design significantly improves conversion.</div></div>
-</div>`},
-{type:'mistakes',content:`<div class="warn-box"><div class="w-label">p-VALUE MISCONCEPTION</div><p>p-value is NOT the probability that H₀ is true. It's the probability of seeing results this extreme IF H₀ were true. A subtle but critical difference.</p></div>
-<div class="warn-box"><div class="w-label">p-HACKING</div><p>Running many tests until you get p < 0.05 inflates Type I error. Pre-register your hypothesis before collecting data.</p></div>`},
-{type:'practice',qa:[
-{q:'If p-value = 0.03 and α = 0.05, what do you conclude?',d:'easy',a:'Reject H₀. Since p-value (0.03) < α (0.05), there is sufficient evidence to reject the null hypothesis.'},
-{q:'What is statistical power?',d:'medium',a:'Power = 1 − β = probability of correctly rejecting H₀ when H₁ is true. High power (≥0.80) means you can detect real effects. Increases with larger sample size.'},
-{q:'You run 20 independent A/B tests and find 1 with p=0.04. Should you launch that feature?',d:'hard',a:'No! With 20 tests at α=0.05, you expect 1 false positive by chance. Apply Bonferroni correction: new α = 0.05/20 = 0.0025. The result is not significant after correction.'},
-]},
-{type:'summary',content:`<div class="summary-grid">
-<div class="sum-card"><h4>KEY FORMULA</h4><p>z = (x̄−μ₀)/(σ/√n)<br>Reject H₀ if p &lt; α<br>Type I = false positive (α)<br>Type II = false negative (β)</p></div>
-<div class="sum-card"><h4>KEY INSIGHT</h4><p>Failing to reject ≠ accepting H₀. Statistical significance ≠ practical significance. Always check effect size too.</p></div>
-</div>`}
-]},
-
-{id:'ab',icon:'🔬',label:'A/B Testing',tag:'APPLIED STATS',
-title:'A/B Testing',
-desc:'The gold standard of data-driven decision making — how Netflix, Google, and Amazon test every change before shipping.',
-sections:[
-{type:'overview',content:`<h3>What is A/B Testing?</h3><p>A/B testing (split testing) is a controlled experiment where you randomly assign users to two groups: <b>Control (A)</b> gets the current version, <b>Treatment (B)</b> gets the new version. You measure which performs better on a key metric.</p><p>It's hypothesis testing applied to product decisions.</p>`},
-{type:'intuition',content:`<div class="analogy-box"><div class="label">RECIPE ANALOGY</div><p style="margin:0;font-size:13px;color:#78350f">You think adding chili to a dish will make it taste better. You cook two identical batches — one with chili (B), one without (A). Give each to 100 random tasters. If B consistently scores higher and the difference is statistically significant, the chili works. That's A/B testing.</p></div>`},
-{type:'concepts',content:`<div class="concept-grid">
-<div class="concept-card"><h4>Control Group (A)</h4><p>Users see the original version. This is your baseline. All other factors must be identical between groups.</p></div>
-<div class="concept-card"><h4>Treatment Group (B)</h4><p>Users see the new version. Only ONE variable should change to isolate its effect.</p></div>
-<div class="concept-card"><h4>Metric / KPI</h4><p>What you're measuring: click rate, conversion, revenue per user, time-on-site. Define BEFORE the test.</p></div>
-<div class="concept-card"><h4>Sample Size</h4><p>Must be large enough to detect the expected effect size. Use power analysis: n = 16σ²/δ² for two-sided tests.</p></div>
-</div>`},
-{type:'formulas',content:`<div class="formula-box"><div class="f-title">MINIMUM SAMPLE SIZE (per group)</div><div class="formula-main">n = (z_α/2 + z_β)² × (p₁(1−p₁) + p₂(1−p₂)) / (p₁−p₂)²</div><div class="formula-vars">α = 0.05 → z = 1.96 &nbsp;|&nbsp; β = 0.20 (80% power) → z = 0.84<br>p₁ = baseline rate &nbsp;|&nbsp; p₂ = expected new rate</div></div>
-<div class="formula-box"><div class="f-title">Z-SCORE FOR PROPORTION TEST</div><div class="formula-main">z = (p̂_B − p̂_A) / √[p̂(1−p̂)(1/n_A + 1/n_B)]</div><div class="formula-vars">p̂ = pooled proportion &nbsp;|&nbsp; n_A, n_B = group sizes</div></div>`},
-{type:'example',content:`<div class="example-box"><div class="ex-title">REAL EXAMPLE — Button Color Test</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">E-commerce site. Current button (A): blue, 5% conversion. New button (B): orange, want to detect 1% lift.</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">Run test for 2 weeks (avoid day-of-week bias). 5000 users per group.</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">Results: A = 247/5000 = 4.94% &nbsp;|&nbsp; B = 318/5000 = 6.36%</div></div>
-<div class="step"><div class="step-num">4</div><div class="step-text">Pooled p̂ = (247+318)/(10000) = 0.0565. Calculate z-score, get z ≈ 3.2, p ≈ 0.001</div></div>
-<div class="step"><div class="step-num">5</div><div class="step-text">p < 0.05. <span class="highlight">Ship the orange button!</span> Estimated revenue lift: +28.7% on this page.</div></div>
-</div>`},
-{type:'mistakes',content:`<div class="warn-box"><div class="w-label">PEEKING PROBLEM</div><p>Stopping the test as soon as p < 0.05 (before planned end date) inflates Type I error. Run the full duration you planned.</p></div>
-<div class="warn-box"><div class="w-label">NOVELTY EFFECT</div><p>New UI sometimes gets a temporary boost just because it's new. Run tests long enough (2+ weeks) to see if effects persist.</p></div>
-<div class="warn-box"><div class="w-label">NETWORK EFFECTS</div><p>If users interact with each other, random assignment doesn't work — one group "contaminates" the other. Use cluster-based assignment.</p></div>`},
-{type:'practice',qa:[
-{q:'What is the minimum duration an A/B test should run?',d:'easy',a:'At least 1-2 full business cycles (typically 2 weeks minimum). This accounts for day-of-week effects and user behavior patterns. Also run until you reach the pre-calculated sample size.'},
-{q:'Your A/B test shows p=0.04 after 3 days. Should you stop?',d:'medium',a:'No. You should run for the full planned duration. Stopping early exploits random fluctuations — true effect might not hold. Pre-register sample size and end date, then respect them.'},
-{q:'You want to detect a lift from 10% to 12% conversion with 80% power and 95% confidence. Estimate required n.',d:'hard',a:'p₁=0.10, p₂=0.12, δ=0.02. Using n≈16σ²/δ² approximation or full formula: n ≈ 3,000+ per group. Exact calculation with the full formula gives ~3,500/group.'},
-]},
-{type:'summary',content:`<div class="summary-grid">
-<div class="sum-card"><h4>PROCESS</h4><p>1. Define metric & H₀<br>2. Calculate n (power analysis)<br>3. Random assign users<br>4. Run full duration<br>5. Analyze & decide</p></div>
-<div class="sum-card"><h4>KEY INSIGHT</h4><p>Change ONE variable. Pre-define everything. Statistical significance ≠ practical significance. Check for novelty effects.</p></div>
-</div>`}
-]},
-
-{id:'guesstimate',icon:'🧮',label:'Guesstimate',tag:'INTERVIEW SKILL',
-title:'Guesstimate Problems',
-desc:'Estimation under uncertainty — a critical interview skill at Google, Airbnb, and top data science roles worldwide.',
-sections:[
-{type:'overview',content:`<h3>What is a Guesstimate?</h3><p>A guesstimate is a reasoned estimate of a quantity you don't know, using logical assumptions and back-of-the-envelope calculations. Interviewers use these to test <em>structured thinking, comfort with uncertainty, and numerical reasoning</em> — not exact answers.</p>`},
-{type:'intuition',content:`<div class="analogy-box"><div class="label">THE KEY MINDSET</div><p style="margin:0;font-size:13px;color:#78350f">You're not expected to know the answer. You're expected to show HOW you think. Break the problem into pieces, estimate each piece, multiply/add them together, and sanity-check the result. Being off by 2x is fine. Being off by 100x means a flawed approach.</p></div>`},
-{type:'concepts',content:`<h3>The MECE Framework</h3><p style="font-size:13px;color:var(--muted)">Mutually Exclusive, Collectively Exhaustive — break the problem into non-overlapping, complete parts.</p>
-<div class="concept-grid">
-<div class="concept-card"><h4>Step 1: Clarify</h4><p>Define the question precisely. "How many" — in what geography, time period, context?</p></div>
-<div class="concept-card"><h4>Step 2: Break Down</h4><p>Decompose into components you can estimate individually.</p></div>
-<div class="concept-card"><h4>Step 3: Estimate Each</h4><p>Use anchors: population of India ~1.4B, US ~330M. City size ~10-15M for major metros.</p></div>
-<div class="concept-card"><h4>Step 4: Sanity Check</h4><p>Does the answer feel right? Compare to something you know. Adjust if wildly off.</p></div>
-</div>`},
-{type:'example',content:`<div class="example-box"><div class="ex-title">CLASSIC EXAMPLE — "How many piano tuners are in Mumbai?"</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">Population of Mumbai ≈ 20 million people</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">Average household size ≈ 4 → ~5 million households</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">Fraction with pianos (Mumbai context, urban/wealthy) ≈ 1 in 200 → ~25,000 pianos</div></div>
-<div class="step"><div class="step-num">4</div><div class="step-text">Pianos need tuning ~1x/year. Tuner does 4 pianos/day × 250 working days = 1,000/year</div></div>
-<div class="step"><div class="step-num">5</div><div class="step-text">Tuners needed = 25,000 / 1,000 = <span class="highlight">~25 piano tuners</span></div></div>
-</div>
-<div class="example-box"><div class="ex-title">DS EXAMPLE — "Estimate daily rides for Ola in Bengaluru"</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">Bengaluru population ≈ 12 million. Working population ≈ 5 million.</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">~20% use ride-hailing regularly = 1 million users. Average 1 ride every 3 days = 333K rides/day</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">Add occasional users, add non-work trips. Estimate: <span class="highlight">400K–600K rides/day in Bengaluru</span></div></div>
-</div>`},
-{type:'practice',qa:[
-{q:'Estimate the number of WhatsApp messages sent per day in India.',d:'hard',a:'India has ~500M WhatsApp users. Active daily: ~350M. Average messages sent per user/day: ~30. Total: 350M × 30 = ~10.5 billion messages/day. Sanity check: WhatsApp global is ~100B/day, India being ~50-60% of user base makes this reasonable.'},
-{q:'Estimate revenue of a mid-size e-commerce company in India with 5M monthly active users.',d:'medium',a:'5M MAU. Conversion to purchase: ~3% → 150K buyers/month. Average order value: ₹1,500. Monthly GMV: 150K × 1,500 = ₹225 crore/month. Annual GMV: ~₹2,700 crore. Company revenue (take rate ~15%): ~₹400 crore/year.'},
-]},
-{type:'summary',content:`<div class="summary-grid">
-<div class="sum-card"><h4>FRAMEWORK</h4><p>1. Clarify the question<br>2. Break into MECE parts<br>3. Estimate each part<br>4. Multiply/aggregate<br>5. Sanity check</p></div>
-<div class="sum-card"><h4>KEY ANCHORS</h4><p>India: 1.4B people, ~300M households<br>Mumbai: 20M &nbsp;|&nbsp; Delhi: 32M<br>Bengaluru: 12M &nbsp;|&nbsp; Days/year: 365</p></div>
-</div>`}
-]},
-
-{id:'car',icon:'🚗',label:'Car Data Analysis',tag:'APPLIED PROJECT',
-title:'Car Data Analysis — Statistics in Practice',
-desc:"Apply everything you've learned to a real dataset. Prices, mileage, brands — statistics comes alive with cars.",
-sections:[
-{type:'overview',content:`<h3>Real-World Stats Application</h3><p>Car datasets (like the classic used-car dataset) contain features like price, mileage, year, fuel type, brand, and transmission. We'll walk through applying all statistical concepts to this data.</p><p>Variables: Price (₹), Mileage (km), Year, Fuel Type (Petrol/Diesel/CNG), Brand, Transmission</p>`},
-{type:'concepts',content:`<table>
-<tr><th>Statistical Concept</th><th>Applied to Car Data</th></tr>
-<tr><td>Probability</td><td>P(car is diesel) = diesel count / total cars</td></tr>
-<tr><td>Bayes Theorem</td><td>P(expensive | premium brand) — update price belief given brand</td></tr>
-<tr><td>Discrete Distribution</td><td>Number of owners — Poisson or Binomial</td></tr>
-<tr><td>Continuous Distribution</td><td>Mileage, Price — modeled as Normal or Uniform</td></tr>
-<tr><td>Sampling</td><td>Stratified by fuel type to ensure all types represented</td></tr>
-<tr><td>Hypothesis Testing</td><td>Is diesel mileage significantly higher than petrol?</td></tr>
-<tr><td>A/B Testing</td><td>Does showing EMI options increase purchase intent?</td></tr>
-</table>`},
-{type:'example',content:`<div class="example-box"><div class="ex-title">ANALYSIS 1 — Hypothesis Test: Diesel vs Petrol Mileage</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">H₀: μ_diesel = μ_petrol &nbsp;|&nbsp; H₁: μ_diesel > μ_petrol</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">Sample: 100 diesel cars (x̄=22 km/l, s=3) &nbsp;|&nbsp; 100 petrol (x̄=18 km/l, s=4)</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">t = (22−18) / √(9/100 + 16/100) = 4 / √0.25 = 4/0.5 = 8.0</div></div>
-<div class="step"><div class="step-num">4</div><div class="step-text">t = 8.0 far exceeds critical value of 1.66. p < 0.001. <span class="highlight">Diesel mileage is significantly higher.</span></div></div>
-</div>
-<div class="example-box"><div class="ex-title">ANALYSIS 2 — Bayesian Price Estimation</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">Prior: 30% of cars are priced above ₹10L. P(expensive) = 0.30</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">You know the car is a "Toyota". P(Toyota | expensive) = 0.60 &nbsp;|&nbsp; P(Toyota | not expensive) = 0.15</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">P(Toyota) = 0.60×0.30 + 0.15×0.70 = 0.18 + 0.105 = 0.285</div></div>
-<div class="step"><div class="step-num">4</div><div class="step-text">P(expensive | Toyota) = (0.60×0.30)/0.285 = 0.18/0.285 = <span class="highlight">63%</span></div></div>
-</div>`},
-{type:'applications',content:`<h3>Guesstimate — Used Car Market in India</h3>
-<div class="example-box"><div class="ex-title">Estimate: Cars sold on OLX in Mumbai per month</div>
-<div class="step"><div class="step-num">1</div><div class="step-text">Mumbai population: 20M → ~5M households → ~2M car owners (40%)</div></div>
-<div class="step"><div class="step-num">2</div><div class="step-text">Average car ownership period: 5 years → 2M/5 = 400K cars sold/year → 33K/month</div></div>
-<div class="step"><div class="step-num">3</div><div class="step-text">Fraction going through OLX: ~30% → <span class="highlight">~10,000 cars listed/month on OLX Mumbai</span></div></div>
-</div>`},
-{type:'practice',qa:[
-{q:'A car dataset has 40% Petrol, 50% Diesel, 10% CNG. If you sample 200 cars stratified by fuel, how many of each?',d:'easy',a:'Petrol: 200×0.40=80. Diesel: 200×0.50=100. CNG: 200×0.10=20. Total = 200.'},
-{q:'How would you check if car price follows a normal distribution?',d:'medium',a:'Plot a histogram and check for bell shape. Use Q-Q plot — points should fall on a straight line. Apply Shapiro-Wilk or Kolmogorov-Smirnov test. In practice, price is often right-skewed (few very expensive cars), so use log-transformation.'},
-{q:'You A/B test two car listing page designs. A: 2.5% contact rate (n=2000). B: 3.1% contact rate (n=2000). Is B significantly better? α=0.05.',d:'hard',a:'p̂_A=0.025, p̂_B=0.031. Pooled p̂=(50+62)/4000=0.028. SE=√(0.028×0.972×(1/2000+1/2000))=√(0.0000272)=0.00522. z=(0.031-0.025)/0.00522=1.15. p-value≈0.125. Since p>0.05, we fail to reject H₀. Not statistically significant — need more data.'},
-]},
-{type:'summary',content:`<div class="summary-grid">
-<div class="sum-card"><h4>SKILLS APPLIED</h4><p>Probability → feature ratios<br>Bayes → conditional pricing<br>Hypothesis tests → compare groups<br>A/B → test UI changes<br>Guesstimate → market sizing</p></div>
-<div class="sum-card"><h4>KEY INSIGHT</h4><p>Real data is messy. Always check distributions, handle outliers (expensive cars skew data), and validate assumptions before running tests.</p></div>
-</div>`}
-]},
+{id:'prob',icon:'🎲',label:'Probability Basics',tag:'FOUNDATION',title:'Probability & Statistics',desc:'The mathematical language of uncertainty — the backbone of every ML model, A/B test, and data-driven decision.',sections:[{type:'overview',content:`<h3>What is Probability?</h3><p>Probability measures <strong>how likely</strong> an event is to occur, on a scale from 0 (impossible) to 1 (certain). Statistics is the science of collecting, analyzing, and interpreting data.</p><p>In data science: Probability helps you understand uncertainty in predictions. Statistics helps you validate hypotheses.</p>`},{type:'intuition',content:`<div class="analogy-box"><div class="label">REAL-LIFE ANALOGY</div><p style="margin:0;font-size:13px;color:#78350f">Imagine you have a bag with 3 red balls and 7 blue balls. If you draw one ball randomly, the probability of getting red is 3/10 = 0.3. Now imagine predicting which email is spam — probability works the same way!</p></div>`},{type:'concepts',content:`<div class="concept-grid"><div class="concept-card"><h4>Sample Space (S)</h4><p>All possible outcomes. Tossing a coin: S = {H, T}. Rolling a die: S = {1,2,3,4,5,6}</p></div><div class="concept-card"><h4>Event (E)</h4><p>A subset of the sample space. Rolling an even number: E = {2,4,6}</p></div><div class="concept-card"><h4>Complement (Eᶜ)</h4><p>Everything NOT in E. If E = rain, Eᶜ = no rain. P(Eᶜ) = 1 − P(E)</p></div><div class="concept-card"><h4>Conditional Probability</h4><p>Probability of A given B already happened: P(A|B). Updates your belief with new information.</p></div></div>`},{type:'formulas',content:`<div class="formula-box"><div class="f-title">BASIC PROBABILITY</div><div class="formula-main">P(E) = Number of favorable outcomes / Total outcomes</div><div class="formula-vars">P ranges from 0 to 1 | Sum of all probabilities = 1</div></div><div class="formula-box"><div class="f-title">ADDITION RULE</div><div class="formula-main">P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</div><div class="formula-vars">∪ = union (A or B) | ∩ = intersection (both)</div></div><div class="formula-box"><div class="f-title">CONDITIONAL PROBABILITY</div><div class="formula-main">P(A|B) = P(A ∩ B) / P(B)</div><div class="formula-vars">P(A|B) = probability of A given B occurred | B must have P(B) > 0</div></div><div class="formula-box"><div class="f-title">MULTIPLICATION RULE</div><div class="formula-main">P(A ∩ B) = P(A) × P(B)</div><div class="formula-vars">Valid only when A and B are independent</div></div>`},{type:'example',content:`<div class="example-box"><div class="ex-title">WORKED EXAMPLE — Card Draw</div><div class="step"><div class="step-num">1</div><div class="step-text">A standard deck has 52 cards. P(Ace)?</div></div><div class="step"><div class="step-num">2</div><div class="step-text">Favorable: 4 aces | Total: 52</div></div><div class="step"><div class="step-num">3</div><div class="step-text">P(Ace) = 4/52 = 1/13 ≈ 0.077 or 7.7%</div></div><div class="step"><div class="step-num">4</div><div class="step-text">P(NOT Ace) = 1 − 1/13 = 12/13 ≈ 92.3%</div></div></div>`},{type:'mistakes',content:`<div class="warn-box"><div class="w-label">MISTAKE 1</div><p>Confusing P(A|B) with P(B|A). These are inverse conditionals and very different.</p></div><div class="warn-box"><div class="w-label">MISTAKE 2</div><p>Assuming independence. If you draw a card without replacing it, probabilities change.</p></div>`},{type:'practice',qa:[{q:'A bag has 5 red, 3 green, 2 blue balls. What is P(red)?',d:'easy',a:'P(red) = 5/10 = 0.5 or 50%'},{q:'P(rolling a 3 OR 5) on a fair die?',d:'easy',a:'P(3) + P(5) = 1/6 + 1/6 = 1/3 ≈ 33.3%'},{q:'In a class of 40, 25 play cricket, 15 play football, 5 play both. P(cricket or football)?',d:'medium',a:'P(C∪F) = 25/40 + 15/40 − 5/40 = 35/40 = 0.875 or 87.5%'}]},{type:'summary',content:`<div class="summary-grid"><div class="sum-card"><h4>KEY FORMULA</h4><p>P(E) = favourable / total<br>P(A|B) = P(A∩B) / P(B)<br>P(Eᶜ) = 1 − P(E)</p></div><div class="sum-card"><h4>KEY INSIGHT</h4><p>Probability lives 0 to 1. All probabilities sum to 1. Conditional prob updates belief.</p></div></div>`}]},
+{id:'bayes',icon:'🔄',label:'Bayes Theorem',tag:'CORE CONCEPT',title:"Bayes' Theorem",desc:"Update beliefs as new evidence arrives. Used in spam filters, medical diagnosis, AI.",sections:[{type:'overview',content:`<h3>Bayes' Theorem</h3><p>Updates your belief when you receive new evidence. Connects prior knowledge with likelihood to produce posterior belief.</p>`},{type:'intuition',content:`<div class="analogy-box"><div class="label">MEDICAL TEST ANALOGY</div><p style="margin:0;font-size:13px;color:#78350f">Disease affects 1% of population. Test is 95% accurate. If positive, do you have it? Not necessarily! Account for rarity.</p></div>`},{type:'formulas',content:`<div class="formula-box"><div class="f-title">BAYES' THEOREM</div><div class="formula-main">P(A|B) = [ P(B|A) × P(A) ] / P(B)</div><div class="formula-vars">Prior P(A) | Likelihood P(B|A) | Posterior P(A|B)</div></div><div class="formula-box"><div class="f-title">LAW OF TOTAL PROBABILITY</div><div class="formula-main">P(B) = P(B|A)×P(A) + P(B|Aᶜ)×P(Aᶜ)</div><div class="formula-vars">Sum over all ways B can occur</div></div>`},{type:'example',content:`<div class="example-box"><div class="ex-title">Disease Diagnosis</div><div class="step"><div class="step-num">1</div><div class="step-text">Prevalence: P(Disease) = 0.01</div></div><div class="step"><div class="step-num">2</div><div class="step-text">Sensitivity: P(Positive|Disease) = 0.95</div></div><div class="step"><div class="step-num">3</div><div class="step-text">False positive: P(Positive|No Disease) = 0.05</div></div><div class="step"><div class="step-num">4</div><div class="step-text">P(Positive) = 0.95×0.01 + 0.05×0.99 = 0.059</div></div><div class="step"><div class="step-num">5</div><div class="step-text">P(Disease|Positive) = 0.0095 / 0.059 = <span class="highlight">16.1%</span></div></div></div>`},{type:'applications',content:`<p>Applications:</p><div class="app-chips"><span class="chip">Spam filtering</span><span class="chip">Medical diagnosis</span><span class="chip">Fraud detection</span></div>`},{type:'mistakes',content:`<div class="warn-box"><div class="w-label">BASE RATE NEGLECT</div><p>Ignoring prior P(A) is the #1 mistake. Always ask: how common is this event?</p></div>`},{type:'practice',qa:[{q:'Email is 30% spam. "FREE" in 80% spam, 10% non-spam. Email has "FREE". P(spam)?',d:'hard',a:'P(spam|FREE) = (0.8×0.3)/0.31 ≈ 77.4%'},{q:'3 components of Bayes?',d:'easy',a:'Prior, Likelihood, Posterior'}]},{type:'summary',content:`<div class="summary-grid"><div class="sum-card"><h4>KEY FORMULA</h4><p>P(A|B) = P(B|A)×P(A) / P(B)</p></div><div class="sum-card"><h4>KEY INSIGHT</h4><p>Always consider base rate. Evidence updates, not replaces beliefs.</p></div></div>`}]},
+{id:'discrete',icon:'📊',label:'Discrete Distributions',tag:'PROBABILITY',title:'Discrete Distributions',desc:'Models for counting outcomes. Foundation of classification.',sections:[{type:'overview',content:`<h3>Discrete Distributions</h3><p>Describes probability of each outcome of discrete random variables (countable values like 0,1,2...).</p>`},{type:'intuition',content:`<div class="analogy-box"><div class="label">ANALOGY</div><p style="margin:0;font-size:13px;color:#78350f">Flip 10 coins, count heads. You get 0,1,2...10. Each has probability. That's discrete!</p></div>`},{type:'formulas',content:`<h3>Bernoulli</h3><div class="formula-box"><div class="f-title">PMF</div><div class="formula-main">P(X=k) = p^k × (1−p)^(1−k)</div><div class="formula-vars">Mean = p, Variance = p(1-p)</div></div><h3>Binomial</h3><div class="formula-box"><div class="f-title">PMF</div><div class="formula-main">P(X=k) = C(n,k) × p^k × (1−p)^(n−k)</div><div class="formula-vars">n trials, k successes, Mean = np</div></div><h3>Poisson</h3><div class="formula-box"><div class="f-title">PMF</div><div class="formula-main">P(X=k) = (λ^k × e^(−λ)) / k!</div><div class="formula-vars">Mean = Variance = λ</div></div>`},{type:'example',content:`<div class="example-box"><div class="ex-title">Binomial</div><div class="step"><div class="step-num">1</div><div class="step-text">Factory: 10% defect. Sample 5. P(exactly 2 defective)?</div></div><div class="step"><div class="step-num">2</div><div class="step-text">C(5,2) = 10</div></div><div class="step"><div class="step-num">3</div><div class="step-text">P(X=2) = 10 × 0.01 × 0.729 = <span class="highlight">7.3%</span></div></div></div>`},{type:'practice',qa:[{q:'Coin flipped 6 times. P(exactly 4 heads)?',d:'medium',a:'C(6,4) × 0.5^6 = 15/64 ≈ 23.4%'},{q:'When use Poisson over Binomial?',d:'easy',a:'When n large, p small. n≥20, p≤0.05'},{q:'Website: 5 crashes/hour. P(0 crashes)?',d:'medium',a:'e^-5 ≈ 0.67%'}]},{type:'summary',content:`<div class="summary-grid"><div class="sum-card"><h4>FORMULAS</h4><p>Bernoulli: p^k(1-p)^(1-k)<br>Binomial: C(n,k)p^k(1-p)^(n-k)<br>Poisson: λ^k·e^-λ / k!</p></div></div>`}]},
+{id:'sampling',icon:'🎯',label:'Sampling',tag:'STATISTICS',title:'Sampling Techniques',desc:'How to collect representative data.',sections:[{type:'overview',content:`<h3>Sampling</h3><p>Study a subset to draw conclusions about the entire population.</p>`},{type:'concepts',content:`<div class="concept-grid"><div class="concept-card"><h4>Simple Random</h4><p>Equal chance for all members.</p></div><div class="concept-card"><h4>Stratified</h4><p>Divide into groups, sample from each.</p></div><div class="concept-card"><h4>Systematic</h4><p>Every k-th element.</p></div><div class="concept-card"><h4>Cluster</h4><p>Select entire clusters randomly.</p></div></div>`},{type:'formulas',content:`<div class="formula-box"><div class="f-title">STANDARD ERROR</div><div class="formula-main">SE = σ / √n</div></div><div class="formula-box"><div class="f-title">CONFIDENCE INTERVAL (95%)</div><div class="formula-main">CI = x̄ ± 1.96 × (σ/√n)</div></div>`},{type:'practice',qa:[{q:'SE if σ=15, n=100?',d:'easy',a:'SE = 15/10 = 1.5'},{q:'Best method for age groups survey?',d:'medium',a:'Stratified sampling'}]},{type:'summary',content:`<div class="summary-grid"><div class="sum-card"><h4>KEY FORMULA</h4><p>SE = σ/√n</p></div><div class="sum-card"><h4>KEY INSIGHT</h4><p>Larger n reduces variance, not bias.</p></div></div>`}]},
+{id:'hypo',icon:'⚖️',label:'Hypothesis Testing',tag:'INFERENCE',title:'Hypothesis Testing',desc:'Rigorous framework to test claims using data.',sections:[{type:'overview',content:`<h3>Hypothesis Testing</h3><p>Formal procedure to evaluate population claims based on sample data.</p>`},{type:'concepts',content:`<div class="concept-grid"><div class="concept-card"><h4>H₀ — Null</h4><p>Default assumption: no effect.</p></div><div class="concept-card"><h4>H₁ — Alternative</h4><p>What you're trying to prove.</p></div><div class="concept-card"><h4>p-value</h4><p>Probability of extreme results under H₀.</p></div><div class="concept-card"><h4>α Level</h4><p>Threshold (typically 0.05).</p></div></div>`},{type:'formulas',content:`<div class="formula-box"><div class="f-title">Z-TEST</div><div class="formula-main">z = (x̄ − μ₀) / (σ/√n)</div></div><div class="formula-box"><div class="f-title">T-TEST</div><div class="formula-main">t = (x̄ − μ₀) / (s/√n)</div></div>`},{type:'practice',qa:[{q:'p=0.03, α=0.05. Conclude?',d:'easy',a:'Reject H₀'},{q:'What is power?',d:'medium',a:'1−β = prob of correctly rejecting H₀ when H₁ true'}]},{type:'summary',content:`<div class="summary-grid"><div class="sum-card"><h4>KEY INSIGHT</h4><p>Significance ≠ practicality. Always check effect size.</p></div></div>`}]},
+{id:'ab',icon:'🔬',label:'A/B Testing',tag:'APPLIED',title:'A/B Testing',desc:'Gold standard of data-driven decisions.',sections:[{type:'overview',content:`<h3>A/B Testing</h3><p>Controlled experiment: compare Control (A) vs Treatment (B).</p>`},{type:'concepts',content:`<div class="concept-grid"><div class="concept-card"><h4>Control (A)</h4><p>Original version, baseline.</p></div><div class="concept-card"><h4>Treatment (B)</h4><p>New version, one change.</p></div><div class="concept-card"><h4>Metric</h4><p>Define KPI before test.</p></div></div>`},{type:'example',content:`<div class="example-box"><div class="ex-title">Button Color Test</div><div class="step"><div class="step-num">1</div><div class="step-text">Blue button: 5% conversion</div></div><div class="step"><div class="step-num">2</div><div class="step-text">Orange button: 6.36%</div></div><div class="step"><div class="step-num">3</div><div class="step-text">p < 0.05. Ship orange!</div></div></div>`},{type:'mistakes',content:`<div class="warn-box"><div class="w-label">PEEKING</div><p>Stopping early inflates errors. Run full duration.</p></div><div class="warn-box"><div class="w-label">NOVELTY</div><p>New UI gets temporary boost. Run 2+ weeks.</p></div>`},{type:'practice',qa:[{q:'Min test duration?',d:'easy',a:'2 weeks minimum for day-of-week effects'},{q:'Stop after 3 days with p=0.04?',d:'medium',a:'No, run full planned duration'}]},{type:'summary',content:`<div class="summary-grid"><div class="sum-card"><h4>PROCESS</h4><p>1. Define metric<br>2. Calculate n<br>3. Random assign<br>4. Run full duration<br>5. Analyze</p></div></div>`}]},
+{id:'guesstimate',icon:'🧮',label:'Guesstimate',tag:'INTERVIEW',title:'Guesstimate Problems',desc:'Estimation under uncertainty.',sections:[{type:'overview',content:`<h3>Guesstimates</h3><p>Reasoned estimates using logical assumptions and back-of-envelope math.</p>`},{type:'concepts',content:`<h3>MECE Framework</h3><div class="concept-grid"><div class="concept-card"><h4>Step 1: Clarify</h4><p>Define precisely: geography, time period, context.</p></div><div class="concept-card"><h4>Step 2: Break Down</h4><p>Decompose into components.</p></div><div class="concept-card"><h4>Step 3: Estimate</h4><p>Estimate each component.</p></div><div class="concept-card"><h4>Step 4: Sanity Check</h4><p>Does it feel right?</p></div></div>`},{type:'example',content:`<div class="example-box"><div class="ex-title">Piano Tuners in Mumbai</div><div class="step"><div class="step-num">1</div><div class="step-text">Population: 20M</div></div><div class="step"><div class="step-num">2</div><div class="step-text">Households: 5M</div></div><div class="step"><div class="step-num">3</div><div class="step-text">With pianos: ~25,000</div></div><div class="step"><div class="step-num">4</div><div class="step-text">Tuners: 25,000 / 1,000 per year = <span class="highlight">~25</span></div></div></div>`},{type:'practice',qa:[{q:'WhatsApp messages/day in India?',d:'hard',a:'350M active × 30 msgs = ~10.5B/day'},{q:'Revenue: 5M MAU, 3% conversion, ₹1500 AOV?',d:'medium',a:'150K × 1500 = ₹225 crores/month'}]},{type:'summary',content:`<div class="summary-grid"><div class="sum-card"><h4>ANCHORS</h4><p>India: 1.4B | Mumbai: 20M<br>Delhi: 32M | Bengaluru: 12M</p></div></div>`}]}
 ];
 
 function renderNav(){
@@ -412,11 +114,11 @@ function renderNav(){
 
 function renderSections(t){
   let html=`<div class="topic-header"><div class="topic-tag">${t.tag}</div><div class="topic-title">${t.title}</div><p class="topic-desc">${t.desc}</p></div>`;
-  const labels={overview:'Overview & importance',intuition:'Core intuition',concepts:'Key concepts',formulas:'Mathematical foundations',example:'Worked examples',applications:'Real-world applications',mistakes:'Common mistakes',practice:'Practice questions',summary:'Summary & revision'};
+  const labels={overview:'Overview',intuition:'Intuition',concepts:'Concepts',formulas:'Formulas',example:'Examples',applications:'Applications',mistakes:'Common Mistakes',practice:'Practice'};
   t.sections.forEach(s=>{
     html+=`<div class="section"><div class="section-label">${labels[s.type]||s.type}</div>`;
     if(s.type==='practice'){
-      s.qa.forEach((q,i)=>{
+      s.qa.forEach((q)=>{
         html+=`<div class="qa-item"><div class="qa-q" onclick="toggleQ(this)"><span><span class="difficulty ${q.d}">${q.d}</span> ${q.q}</span><span>+</span></div><div class="qa-a">Answer: ${q.a}</div></div>`;
       });
     } else {
@@ -454,3 +156,6 @@ function toggleQ(el){
 renderNav();
 renderTopics();
 </script>
+
+</body>
+</html>
